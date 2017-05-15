@@ -48,7 +48,7 @@ docker build .
 
 echo "Updating repository..."
 git add Dockerfile
-git -c user.name='travis' -c user.email='travis' \
+git -c user.name='Travis Automated Update' -c user.email='travis@luzifer.io' \
   commit -m "Jenkins ${LATEST}"
 git tag ${LATEST}
 
