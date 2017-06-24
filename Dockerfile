@@ -1,4 +1,4 @@
-FROM jenkins:2.46.3
+FROM jenkins:2.60.1
 USER root
 
 RUN bash -c "if ! [ -e /usr/lib/apt/methods/https ]; then apt-get update && apt-get install -y apt-transport-https; fi"
