@@ -9,6 +9,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
 	apt-transport-https \
 	lsb-release \
+	make \
 	sudo
 
 # Install docker-ce
