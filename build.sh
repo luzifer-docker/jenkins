@@ -8,6 +8,7 @@ apt-get update
 # Install helper utils
 apt-get install -y --no-install-recommends \
 	apt-transport-https \
+	jq \
 	lsb-release \
 	make \
 	sudo
