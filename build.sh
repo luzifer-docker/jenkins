@@ -13,6 +13,7 @@ install_packages=(
 	jq
 	make
 	sudo
+	zip
 )
 
 apt-get update
