@@ -33,6 +33,13 @@ apt-get install -y --no-install-recommends ${install_packages[@]}
 echo "jenkins ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers.d/jenkins
 usermod -a -G docker jenkins
 
+# Install Vault for global usage
+VAULT_VERSION=$(curl -sSfL "https://lv.luzifer.io/catalog-api/vault/latest.txt?p=version")
+curl -sSfLo vault.zip "https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip"
+unzip vault.zip
+rm vault.zip
+install -Dm0755 -t /usr/local/bin vault
+
 # Cleanup
 apt-get purge -y ${build_packages[@]}
 apt-get autoremove --purge -y
