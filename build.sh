@@ -11,6 +11,7 @@ build_packages=(
 install_packages=(
 	docker-ce
 	jq
+	locales
 	make
 	sudo
 	zip
@@ -28,6 +29,10 @@ apt-get update
 
 # Install packages to stay in the image
 apt-get install -y --no-install-recommends ${install_packages[@]}
+
+# Install en_US locale
+sed -Ei 's/# (en_US.UTF-8.*)/\1/' /etc/locale.gen
+locale-gen
 
 # Allow jenkins to use `sudo` and docker
 echo "jenkins ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers.d/jenkins
