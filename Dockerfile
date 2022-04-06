@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.332.1
+FROM jenkins/jenkins:2.332.2
 USER root
 
 COPY build.sh /usr/local/bin/build.sh
