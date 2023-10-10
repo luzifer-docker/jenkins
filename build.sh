@@ -4,17 +4,18 @@ set -euxo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
 build_packages=(
-	apt-transport-https
-	lsb-release
+  apt-transport-https
+  lsb-release
 )
 
 install_packages=(
-	docker-ce
-	jq
-	locales
-	make
-	sudo
-	zip
+  docker-buildx-plugin
+  docker-ce
+  jq
+  locales
+  make
+  sudo
+  zip
 )
 
 apt-get update
