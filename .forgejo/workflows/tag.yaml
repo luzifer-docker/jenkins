@@ -1,0 +1,40 @@
+name: Replicate Tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tag-latest:
+    runs-on: forgejo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Get tag version from Dockerfile
+        id: get_tag
+        run: |
+          TAG=$(awk -F : '/FROM/{ print $2 }' Dockerfile | grep -o '^[0-9\.]*' | head -n 1)
+          echo "Tag version found: $TAG"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Check if tag already exists remotely
+        id: tag_exists
+        run: |
+          if git ls-remote --tags origin | grep -q "refs/tags/${{ steps.get_tag.outputs.tag }}$"; then
+            echo "Tag already exists."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag does not exist."
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create and push lightweight tag on current commit
+        if: steps.tag_exists.outputs.exists == 'false'
+        run: |
+          git config user.name "Luzifer-CI"
+          git config user.email "ci@luzifer.io"
+          git tag "${{ steps.get_tag.outputs.tag }}" "${{ github.sha }}"
+          git push origin "${{ steps.get_tag.outputs.tag }}"
