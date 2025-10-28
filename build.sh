@@ -21,11 +21,13 @@ install_packages=(
 apt-get update
 
 # Install packages required for building the image
-apt-get install -y --no-install-recommends ${build_packages[@]}
+apt-get install -y --no-install-recommends \
+  ${build_packages[@]} \
+  curl
 
 # Activate docker repo
-curl -sSfL https://download.docker.com/linux/debian/gpg | apt-key add -
-echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -sc) stable" >/etc/apt/sources.list.d/docker.list
+curl -sSfL -o /etc/apt/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" >/etc/apt/sources.list.d/docker.list
 apt-get update
 
 # Install packages to stay in the image
