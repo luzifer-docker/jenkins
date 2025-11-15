@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.528.1-lts-jdk21@sha256:f2519b99350faeaaeef30e3b8695cd6261a5d571c859ec37c7ce47e5a241458d
+FROM jenkins/jenkins:2.528.2-lts-jdk21@sha256:7b1c378278279c8688efd6168c25a1c2723a6bd6f0420beb5ccefabee3cc3bb1
 USER root
 
 ARG VAULT_VERSION=1.21.0 # renovate: packageName=vault/latest
